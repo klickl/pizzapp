@@ -1,0 +1,76 @@
+<% #encoding: UTF-8 %>
+
+<h2 class="header red-text text-darken-2">Liste des pizzas</h2>
+<% if @pizzas.empty? %>
+    Aucune pizza n'existe.
+<% else %>
+    <ul class="collapsible popout" data-collapsible="accordion" id="listingPizzas">
+      <% @pizzas.each do |pizza| %>
+         <% if pizza.is_proposed? || @user.privilege.level >= 100%>
+                  <li>
+            <div class="collapsible-header nameHeader truncate">
+              <% if pizza.is_proposed %>
+                  <i class="mdi-toggle-check-box"></i>
+              <% else %>
+                  <i class="mdi-toggle-check-box-outline-blank"></i>
+              <% end %>
+
+              <%= pizza.name %>
+              <span class="right green-text">
+                <a class="black-text" href="#">
+                  <%= pizza.number_likes %>
+                </a>
+                <a class="green-text text-darken-2" href="#" >
+                  <i class="mdi-social-plus-one right"></i>
+                </a>
+              </span>
+            </div>
+            <div class="collapsible-body">
+              <% if @user.privilege.level >=100 %>
+                  <div class="center div-admin">
+                    <% if false %>
+                        <%= link_to pizza, {class: 'btn'} do %>
+                            <i class="mdi-action-visibility"></i>
+                        <% end %>
+                    <% end %>
+                    <%= link_to edit_pizza_path(pizza), {class: 'btn'} do %>
+                        <i class="mdi-content-create"></i>
+                    <% end %>
+                    <%= link_to pizza, method: :delete, data: { confirm: 'Are you sure?'} , class: 'btn red accent-4' do %>
+                        <i class="mdi-action-delete"></i>
+                    <% end %>
+                  </div>
+              <% end %>
+
+                <% if pizza.has_ingredients? %>
+                    <p class="compo_pizza">
+                        Composition:
+                          <% pizza.ingredients.each do |ingredient| %>
+                              <%= ingredient.name %>
+                              <% if pizza.ingredients.last == ingredient %>
+                                 .
+                              <% else %>
+                                 ,
+                              <% end %>
+                          <% end %>
+                    </p>
+
+                <% else %>
+                    <p>
+                      Aucun ingrédient.
+                    </p>
+                <% end %>
+              </p>
+            </div>
+          </li>
+         <% end %>
+      <% end %>
+    </ul>
+
+    <% if @user.privilege.level >=100 %>
+        <div class="center">
+          <a class=" btn grey darken-2 waves-effect waves-light" href="<%= new_pizza_path %>">Creer une pizza</a>
+        </div>
+    <% end %>
+
+<% end %>

@@ -1,0 +1,7 @@
+<ul class="section table-of-contents">
+<% if @links != nil %>
+    <% @links.each do |anchor,name | %>
+        <li><a href="#<%= anchor %>"><%= name %></a></li>
+    <% end %>
+<% end %>
+</ul>

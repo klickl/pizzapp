@@ -1,0 +1,25 @@
+<nav>
+    <div class="nav-wrapper red darken-4 z-depth-1">
+      <a class="brand-logo center" id="app_name" href="<%= url_for( {controller: :home, action: 'index'}) %>"><%= controller.app_name%></a>
+      <ul class="right">
+        <li class="nav_item"><a class="dropdown-button" href="#!" data-activates="list_action"><%=@user.privilege.label + " " +@user.name %></i></a></li>
+      </ul>
+
+      <ul class="left hide-on-small-only">
+        <% if @notifications != nil %>
+            <li class="nav_item tooltipped" data-position="bottom" data-delay="50" data-tooltip="<%= number_notifications %> notification<%= number_notifications > 1 ? 's':''%>">
+              <a href="#"><i class="mdi-social-notifications left"></i><span class="new badge custom grey darken-2"><%= number_notifications %></span></a>
+            </li>
+        <% else %>
+            <li class="nav_item tooltipped" data-position="right" data-delay="50" data-tooltip="Pas de notifications"><a href="#"><i class="mdi-social-notifications-none left"></i></a></li>
+        <% end %>
+      </ul>
+
+  </div>
+</nav>
+
+<ul id='list_action' class='dropdown-content red darken-4'>
+  <li class="center"><a class="white-text" href="#!"><i class="mdi-social-person left menu-item-icon"></i>Profil</a></li>
+  <li class="divider"></li>
+  <li class="center"><a class="white-text" href="#!"><i class="mdi-action-exit-to-app left menu-item-icon"></i>Quitter</a></li>
+</ul>

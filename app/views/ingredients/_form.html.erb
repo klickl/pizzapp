@@ -1,0 +1,25 @@
+<div class="row">
+  <%= form_for(@ingredient,html: {class:'col s12'}) do |f| %>
+      <% if @ingredient.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@ingredient.errors.count, "error") %> prohibited this ingredient from being saved:</h2>
+
+            <ul>
+              <% @ingredient.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+      <% end %>
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_field :name %>
+          <%= f.label :name %>
+        </div>
+      </div>
+
+      <div class="row center">
+        <%= f.submit('Valider', class:'btn grey darken-2') %>
+      </div>
+  <% end %>
+</div>

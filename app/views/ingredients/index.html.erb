@@ -1,0 +1,31 @@
+<h4 class="header red-text text-darken-2">Liste des ingrédients</h4>
+
+<table class="hoverable responsive-table centered">
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @ingredients.each do |ingredient| %>
+      <tr>
+        <td><%= ingredient.name %></td>
+        <td><%= link_to edit_ingredient_path(ingredient), {class: 'btn'} do %>
+            <i class="mdi-content-create"></i>
+        <% end %></td>
+        <td><%= link_to ingredient, method: :delete, data: { confirm: 'Are you sure?'} , class: 'btn red accent-4' do %>
+            <i class="mdi-action-delete"></i>
+        <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<div class="center">
+    <%= link_to 'Créer un ingrédient', new_ingredient_path, class: 'btn grey darken-2 waves-effect waves-light' %>
+</div>

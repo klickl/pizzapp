@@ -1,0 +1,23 @@
+<%= form_for(@composition_pizza) do |f| %>
+
+    <div class="field">
+      <%= f.label 'Pizza' %><br>
+      <%= f.select :pizza_id, options_for_select(controller.list_pizza) %>
+    </div>
+
+  <% if @composition_pizza.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@composition_pizza.errors.count, "error") %> prohibited this composition_pizza from being saved:</h2>
+
+      <ul>
+      <% @composition_pizza.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,133 @@
+<ul id="nav-mobile" class="side-nav fixed">
+	<li class="logo"><%= image_tag 'flat_pizza.png', {width: '160px', height: '160px'} %></li>
+	<li class="no-padding"><a href="#!" class="btn-large grey darken-1 white-text waves-effect waves-light waves-white">Commander</a></li>
+    <% if @user.privilege.level > 500 %>
+        <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li class="bold">
+            <a class="collapsible-header waves-effect waves-light waves-red <%= is_menu_active?(@menuNames[:restaurants])%>">Les Restaurants</a>
+            <div class="collapsible-body">
+              <ul>
+                <li class="<%= is_active?(@actionNames[:show_restaurants])%>"><a href="<%= url_for({controller: :restaurants, action: :index})%>">Voir les restaurants</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+        </li>
+    <% end %>
+    <% if @user.privilege.level >= 100 %>
+      <li class="no-padding">
+          <ul class="collapsible collapsible-accordion">
+              <li class="bold">
+                <a class="collapsible-header waves-effect waves-light waves-red <%= is_menu_active?(@menuNames[:ingredients])%>">Les ingrédients</a>
+                <div class="collapsible-body">
+                  <ul>
+                    <li class="<%= is_active?(@actionNames[:show_ingredients])%>"><a href="<%= url_for({controller: :ingredients, action: :index})%>" >Voir les ingrédients </a></li>
+                    <li class="<%= is_active?(@actionNames[:new_ingredient])%>"><a href="<%=  url_for({controller: :ingredients, action: :new}) %>">Créer un ingrédient</a></li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+        </li>
+    <% end %>
+	<li class="no-padding">
+		<ul class="collapsible collapsible-accordion">
+			<li class="bold">
+				<a class="collapsible-header waves-effect waves-light waves-red <%= is_menu_active?(@menuNames[:pizzas])%>">Les pizzas</a>
+				<div class="collapsible-body">
+					<ul>
+						<li class="<%= is_active?(@actionNames[:show_pizzas])%>"><a href="<%= url_for({controller: :pizzas, action: :index})%>" >Voir les pizzas </a></li>
+						<li class="<%= is_active?(@actionNames[:search_pizza])%>"><a href="#!">Rechercher une pizza</a></li>
+						<% if @user.privilege.level >= 100 %>
+                          <li class="<%= is_active?(@actionNames[:new_pizza])%>"><a href="<%=  url_for({controller: :pizzas, action: :new}) %>">Créer une pizza</a></li>
+                        <% end %>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</li>
+
+
+    <li class="divider"></li>
+	<li class="no-padding">
+		<ul class="collapsible collapsible-accordion">
+			<li class="bold">
+				<a class="collapsible-header waves-effect waves-light waves-red <%= is_menu_active?(@menuNames[:orders])%>">Mes commandes</a>
+				<div class="collapsible-body">
+					<ul>
+						<li><a href="#!">Toutes mes commandes</a></li>
+						<% if @commande != nil%>
+                            <li><a href="#!">Voir ma commande</a></li>
+                            <li><a href="#!">Modifier ma commande</a></li>
+                            <li><a href="#!">Annuler ma commande</a></li>
+                        <% end %>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</li>
+
+  <% if @user.privilege.level >= 100 %>
+	<li class="no-padding">
+		<ul class="collapsible collapsible-accordion">
+			<li class="bold">
+				<a class="collapsible-header waves-effect waves-light waves-red <%= is_menu_active?(@menuNames[:users])%>">Les Utilisateurs</a>
+				<div class="collapsible-body">
+					<ul>
+						<li><a href="#!"> Lister les utilisateurs</a></li>
+						<li><a href="#!"> Ajouter un utilisateur</a></li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</li>
+  <% end %>
+
+  <% if @user.privilege.level > 500 %>
+	<li class="no-padding">
+		<ul class="collapsible collapsible-accordion">
+			<li class="bold">
+				<a href="#" class="collapsible-header waves-effect waves-light waves-red <%= is_menu_active?(@menuNames[:groups])%>">Les groupes</a>
+				<div class="collapsible-body">
+					<ul>
+						<li><a href="#!">Lister les groupes</a></li>
+						<li><a href="<%= url_for({controller: :groups, action: :new}) %>"><i class="mdi-content-add bold"></i>  Créer un groupe</a></li>
+					</ul>
+				</div>
+			</li>
+		</ul>
+	</li>
+  <% end %>
+  <% #Si l'utilisateur a créé un groupe ou plusieurs il peut l'administrer (voir les utilisateurs en ajouter ou en supprimer) %>
+  <% if @user.privilege.level < 1000 %>
+      <li class="no-padding">
+        <ul class="collapsible collapsible-accordion">
+          <li class="bold">
+            <a href="#" class="collapsible-header waves-effect waves-light waves-red <%= is_menu_active?(@menuNames[:my_groups])%>">Mes groupes</a>
+            <div class="collapsible-body">
+              <ul>
+                <li class="bold no_hover"><a>Membre de</a></li>
+                <% if @user.is_member_of_group? %>
+                    <% @user.groups.each do |g| %>
+                        <li><a href="#!"><%= g.name%></a></li>
+                    <% end %>
+                <% else %>
+                    <li><i>Aucun groupe</i></li>
+                <% end %>
+
+                <li class="bold no_hover"><a>Administrateur de</a></li>
+                <% if @user.has_created_groups? %>
+                    <% @user.groups_created.each do |g| %>
+                        <li><a href="#!" class="truncate"><%= g.name %></a></li>
+                    <% end %>
+                <% else %>
+                    <li><i>Aucun groupe.</i></li>
+                <% end %>
+                <li><a href="<%= url_for({controller: :groups, action: :new}) %>"><i class="mdi-content-add bold"></i>  Créer un groupe</a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </li>
+  <% end %>
+</ul>

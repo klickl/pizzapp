@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <title><%= controller.app_name %></title>
+
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+      <link rel="shortcut icon" type="image/x-icon" href="../pizz_icon.ico" />
+      <%= stylesheet_link_tag	 'materialize', media: 'all'  %>
+      <%= stylesheet_link_tag    'application', media: 'all'  %>
+      <%= javascript_include_tag 'application' %>
+      <%= javascript_include_tag 'materialize.min' %>
+      <%= csrf_meta_tags %>
+    </head>
+
+    <body>
+        <header>
+          <a href="#" data-activates="nav-mobile" class="button-collapse top-nav waves-effect waves-light circle">
+            <i class="mdi-navigation-menu"></i>
+          </a>
+          <%= render 'layouts/navbar' %>
+          <%= render 'layouts/sidenav' %>
+        </header>
+        <main>
+          <div class="section white">
+            <div class="container">
+                <div class="row">
+                  <div class="col s12 <%=col %>">
+                    <% if @disp_card == true%>
+                        <div class="card main-card">
+                          <div class="card-content">
+                    <% end %>
+                            <%= yield %>
+                    <% if @disp_card == true%>
+                          </div>
+                        </div>
+                    <% end %>
+                  </div>
+                  <div class="col hide-on-small-only m3 l2">
+                    <%= render 'layouts/links' %>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </main>
+        <%= render 'layouts/footer' %>
+    </body>
+</html>

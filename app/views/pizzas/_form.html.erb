@@ -1,0 +1,78 @@
+<% #encoding: UTF8 %>
+
+<div class="row">
+  <%= form_for(@pizza, html: {class:'col s12'}) do |f| %>
+    <% if @pizza.errors.any? %>
+        <div id="error_explanation">
+        <h2><%= pluralize(@pizza.errors.count, "error") %> prohibited this pizza from being saved:</h2>
+
+        <ul>
+        <% @pizza.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+        <% end %>
+        </ul>
+        </div>
+    <% end %>
+
+    <div class="row">
+        <div class="col m4 l4 s12">
+          <h4 class="header red-text text-darken-2"><%= @title_part %></h4>
+          <div class="row">
+            <div class="col s12 input-field">
+              <%= f.text_field :name %>
+              <%= f.label :name, 'Nom de la pizza' %>
+            </div>
+
+            <div class="">
+              <p>
+                <%= f.check_box :is_proposed %>
+                <%= f.label :is_proposed, ' A la carte ?'  %>
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col l6  m6 s12 offset-l2">
+            <div class="row">
+              <h5 class="header red-text text-darken-2">Composition :</h5>
+            </div>
+
+            <input type="hidden" id="input_ingredients" name="ingredients" value="<%= values_hidden(@pizza) %>" />
+            <div id="ingredients_select" class="input-field col s12">
+                <select id="selectIngredient">
+                    <option value="label" disabled selected>Choisir un ingrédient</option>
+                    <% @ingredients.each do |ingredient|%>
+                        <% if @pizza.ingredients.include?(ingredient) == false %>
+                           <option value="<%= ingredient.name %>"><%= ingredient.name %></option>
+                        <% end %>
+                    <% end %>
+                </select>
+                <label>Ajoutez un ingrédient</label>
+            </div>
+            <div id="no_ingredients_div" class="input-field col s12">
+                <select disabled>
+                  <option disabled selected>Il n'y a plus d'ingrédients</option>
+                </select>
+                <label>Ajoutez un ingrédient</label>
+            </div>
+            <div id="zone_ingredients" class="row">
+              <% if @pizza.has_ingredients? %>
+                  <% @pizza.ingredients.each do |ingredient| %>
+                    <div class="col l5 m12 s12 card grey darken-1 <%= add_offset(@pizza.ingredients.index(ingredient)) %>">
+                      <div class="card-content white-text">
+                        <span><a href="#!" class="remove-elt">
+                            <i class="tiny mdi-action-delete right white-text"></i></a><%= ingredient.name %>
+                        </span>
+                      </div>
+                    </div>
+                  <% end %>
+              <% end %>
+            </div>
+        </div>
+    </div>
+    <div class="row center">
+        <%= f.submit('Valider', class:'btn grey darken-2') %>
+    </div>
+  <% end %>
+</div>

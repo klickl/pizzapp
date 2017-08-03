@@ -1,0 +1,124 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+}
+
+main {
+	flex: 1 0 auto;
+}
+
+.parallax-container {
+  height: 200px;
+}
+
+nav.top-nav{
+	height:65px;
+}
+
+#btn-order{
+	bottom: 80px; right: 24px;
+}
+
+#app_name{
+    font-style: italic;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+#nav-mobile a.collapsible-header{
+    margin:0;
+}
+
+.underline{
+    text-decoration: underline;
+}
+
+.marg_right{
+    margin-right: 10px;
+}
+
+#list_action li:hover{
+    background:#c62828;
+}
+
+.nav_item:hover{
+    background:#c62828;
+}
+
+ul.side-nav.fixed li.no_hover:hover{
+    background:none;
+}
+
+ul.side-nav.fixed li.active {
+}
+
+.collapsible-body li.active, .side-nav.fixed .collapsible-body li.active {
+    background:#c62828;
+}
+
+/* dans les elements <i> du menu : class="mdi-blabla left menu-item-icon" */
+
+li#nav_item_user a.dropdown-button {
+    width: 140px;
+    text-align: right;
+}
+
+.badge.custom{
+    padding: 6px;
+    font-size: 1rem;
+    margin-left: 5px;
+    position:inherit;
+}
+
+nav .nav-wrapper i.menu-item-icon {
+    height: inherit;
+    line-height: inherit;
+}
+
+#list_action li:not(.divider) {
+    height: 64px;
+}
+
+.div-admin{
+    margin-top: 10px;
+}
+
+.nameHeader{
+    font-size: x-large;
+}
+
+
+#listingPizzas li.active > div{
+    background: #f5f5f5 ;
+}
+
+.main-card{
+    overflow: visible;
+}
+
+#no_ingredients_div{
+    display:none;
+}
+
+.compo_pizza{
+    font-size: large;
+    color:black;
+    font-weight: bold;
+}

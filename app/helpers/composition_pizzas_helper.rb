@@ -1,0 +1,2 @@
+module CompositionPizzasHelper
+end
